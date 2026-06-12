@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef as React.RefObject<Element>, { once: true, margin: '-8%' })
+  const isInView = useInView(sectionRef as React.RefObject<Element>, { once: true, margin: '-35% 0px -10% 0px' })
 
   const prev = () => setActiveIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))
   const next = () => setActiveIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))
@@ -28,9 +28,9 @@ export default function Testimonials() {
             <motion.h2
               id="testimonials-heading"
               className="font-serif text-display-sm text-ink mt-4"
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: 60 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.92, delay: 0.1, ease: [0.42, 0, 0.58, 1] }}
             >
               Kind words
             </motion.h2>
@@ -41,7 +41,7 @@ export default function Testimonials() {
             className="flex items-center gap-3"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.78, delay: 0.2 }}
           >
             <button
               onClick={prev}
@@ -71,9 +71,9 @@ export default function Testimonials() {
 
         {/* Active testimonial — large format */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 1.0, delay: 0.2, ease: [0.42, 0, 0.58, 1] }}
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -81,7 +81,7 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.45, ease: [0.42, 0, 0.58, 1] }}
               className="relative"
             >
               {/* Large quote mark */}
@@ -150,8 +150,10 @@ export default function Testimonials() {
                   ? 'border-ink/20 bg-ink/5'
                   : 'border-transparent hover:border-border'
               )}
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.78, delay: 0.3 + i * 0.07, ease: [0.42, 0, 0.58, 1] }}
               whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
               data-cursor="hover"
             >
               <div className="flex items-center gap-2.5 mb-3">

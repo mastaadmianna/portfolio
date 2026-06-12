@@ -160,9 +160,22 @@ export default function Header() {
 }
 
 function NavItem({ href, label }: { href: string; label: string }) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const hash = href.split('#')[1]
+    if (!hash) return
+    const target = document.getElementById(hash)
+    if (!target) return // not on this page — let Next.js navigate normally
+    const lenis = (window as any).__lenis
+    if (lenis) {
+      e.preventDefault()
+      lenis.scrollTo(target, { offset: 0 })
+    }
+  }
+
   return (
     <Link
       href={href}
+      onClick={handleClick}
       className="relative px-4 py-2 text-sm text-muted hover:text-ink transition-colors duration-200 font-sans group"
       data-cursor="hover"
     >

@@ -6,12 +6,9 @@ import Experience from '@/components/sections/Experience'
 import MotionSection from '@/components/sections/MotionSection'
 import About from '@/components/sections/About'
 import Testimonials from '@/components/sections/Testimonials'
-import CursorFollower from '@/components/ui/CursorFollower'
-
 export default function Home() {
   return (
     <>
-      <CursorFollower />
       <Header />
       <main>
         <Hero />

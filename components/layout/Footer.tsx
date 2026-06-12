@@ -29,10 +29,10 @@ export default function Footer() {
             </p>
             <motion.h2
               className="font-serif text-display-sm text-ink leading-[1.1]"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-30% 0px -10% 0px' }}
+              transition={{ duration: 0.92, ease: [0.42, 0, 0.58, 1] }}
             >
               Let&apos;s build something
               <br />
@@ -44,10 +44,10 @@ export default function Footer() {
             <motion.a
               href="mailto:alex@alexchen.design"
               className="group inline-flex items-center gap-3 text-2xl font-serif text-ink hover:opacity-60 transition-opacity"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: '-30% 0px -10% 0px' }}
+              transition={{ duration: 0.88, delay: 0.15, ease: [0.42, 0, 0.58, 1] }}
               data-cursor="hover"
             >
               alex@alexchen.design
@@ -70,10 +70,10 @@ export default function Footer() {
               href="/resume.pdf"
               download
               className="group inline-flex items-center gap-2 text-sm text-muted hover:text-ink transition-colors"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: '-30% 0px -10% 0px' }}
+              transition={{ duration: 0.88, delay: 0.28, ease: [0.42, 0, 0.58, 1] }}
               data-cursor="hover"
             >
               <svg
@@ -103,8 +103,15 @@ export default function Footer() {
           </p>
 
           <nav className="flex items-center gap-6" aria-label="Social links">
-            {socials.map((s) => (
-              <motion.div key={s.label} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+            {socials.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-30% 0px -10% 0px' }}
+                transition={{ duration: 0.65, delay: 0.1 + i * 0.06, ease: [0.42, 0, 0.58, 1] }}
+                whileHover={{ y: -2 }}
+              >
                 <Link
                   href={s.href}
                   className="text-xs text-faint hover:text-ink transition-colors"

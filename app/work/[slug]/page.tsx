@@ -3,20 +3,10 @@ import type { Metadata } from 'next'
 import { projects } from '@/data'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import CursorFollower from '@/components/ui/CursorFollower'
-import CaseStudyHero from '@/components/case-study/CaseStudyHero'
-import ProblemStatement from '@/components/case-study/ProblemStatement'
-import Goals from '@/components/case-study/Goals'
-import Research from '@/components/case-study/Research'
-import DesignProcess from '@/components/case-study/DesignProcess'
-import KeyFeatures from '@/components/case-study/KeyFeatures'
-import DesignDecisions from '@/components/case-study/DesignDecisions'
-import FinalProduct from '@/components/case-study/FinalProduct'
-import Impact from '@/components/case-study/Impact'
-import Learnings from '@/components/case-study/Learnings'
+import CaseStudyDetail from '@/components/case-study/CaseStudyDetail'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -26,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projects.find((p) => p.slug === params.slug)
+  const { slug } = await params
+  const project = projects.find((p) => p.slug === slug)
   if (!project) return {}
   return {
     title: `${project.title} — Alex Chen`,
@@ -34,25 +25,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function CaseStudyPage({ params }: Props) {
-  const project = projects.find((p) => p.slug === params.slug)
+export default async function CaseStudyPage({ params }: Props) {
+  const { slug } = await params
+  const project = projects.find((p) => p.slug === slug)
   if (!project) notFound()
 
   return (
     <>
-      <CursorFollower />
       <Header />
       <main>
-        <CaseStudyHero project={project} />
-        <ProblemStatement project={project} />
-        <Goals project={project} />
-        <Research project={project} />
-        <DesignProcess project={project} />
-        <KeyFeatures project={project} />
-        <DesignDecisions project={project} />
-        <FinalProduct project={project} />
-        <Impact project={project} />
-        <Learnings project={project} />
+        <CaseStudyDetail project={project} />
       </main>
       <Footer />
     </>

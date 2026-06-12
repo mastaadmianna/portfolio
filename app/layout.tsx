@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { DM_Serif_Display, Inter } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from '@/components/ui/SmoothScroll'
+import DiagonalHatch from '@/components/ui/DiagonalHatch'
+import CursorFollower from '@/components/ui/CursorFollower'
 
 const dmSerif = DM_Serif_Display({
   weight: ['400'],
@@ -38,7 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSerif.variable} ${inter.variable}`}>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        <DiagonalHatch />
+        <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+          <SmoothScroll>{children}</SmoothScroll>
+        </div>
+        <CursorFollower />
       </body>
     </html>
   )

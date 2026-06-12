@@ -5,10 +5,11 @@ import { motion, useInView } from 'framer-motion'
 import { motionVideos } from '@/data'
 import SectionLabel from '@/components/ui/SectionLabel'
 import VideoCard from '@/components/ui/VideoCard'
+import { cn } from '@/lib/utils'
 
 export default function MotionSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef as React.RefObject<Element>, { once: true, margin: '-8%' })
+  const isInView = useInView(sectionRef as React.RefObject<Element>, { once: true, margin: '-35% 0px -10% 0px' })
 
   return (
     <section
@@ -25,18 +26,18 @@ export default function MotionSection() {
             <motion.h2
               id="motion-heading"
               className="font-serif text-display-sm text-ink mt-4"
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: 60 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.92, delay: 0.1, ease: [0.42, 0, 0.58, 1] }}
             >
               Motion work
             </motion.h2>
           </div>
           <motion.p
             className="text-sm text-muted max-w-xs leading-relaxed"
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.88, delay: 0.2, ease: [0.42, 0, 0.58, 1] }}
           >
             Interaction prototypes, UI animations, and brand motion pieces I&apos;ve created
             to bring products to life.
@@ -44,21 +45,35 @@ export default function MotionSection() {
         </div>
 
         {/* Video grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {motionVideos.map((video, i) => (
-            <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.65,
-                delay: 0.05 + i * 0.07,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <VideoCard video={video} />
-            </motion.div>
-          ))}
+        <div>
+          <div className="grid grid-cols-1 lg:grid-cols-3">
+            {motionVideos.map((video, i) => {
+              const isLastItem = i === 5
+              const isLastCol = i % 3 === 2
+              const isLastRow = i >= 3
+              return (
+                <motion.div
+                  key={video.id}
+                  className={cn(
+                    // Mobile: border-b between all rows except last
+                    !isLastItem && 'border-b border-border',
+                    // Desktop: remove border-b from last row, add border-r for non-last cols
+                    isLastRow && 'lg:border-b-0',
+                    !isLastCol && 'lg:border-r lg:border-border',
+                  )}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{
+                    duration: 0.82,
+                    delay: 0.1 + i * 0.08,
+                    ease: [0.42, 0, 0.58, 1],
+                  }}
+                >
+                  <VideoCard video={video} flush />
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
 
         {/* Bottom note */}
@@ -66,7 +81,7 @@ export default function MotionSection() {
           className="text-xs text-faint text-center mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.78, delay: 0.6 }}
         >
           Hover cards to preview · Click to open full video
         </motion.p>

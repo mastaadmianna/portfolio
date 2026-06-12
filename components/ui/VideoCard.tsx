@@ -147,9 +147,10 @@ const THUMBNAILS: Record<string, { bg: string; Graphic: () => JSX.Element }> = {
 
 type Props = {
   video: MotionVideo
+  flush?: boolean
 }
 
-export default function VideoCard({ video }: Props) {
+export default function VideoCard({ video, flush = false }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -158,16 +159,17 @@ export default function VideoCard({ video }: Props) {
   return (
     <>
       <motion.div
-        className="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer"
+        className="group relative aspect-video overflow-hidden cursor-pointer"
+        style={{ borderRadius: flush ? 0 : '1rem' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsOpen(true)}
-        whileHover={{ y: -4 }}
+        whileHover={flush ? {} : { y: -4, boxShadow: '0 12px 32px rgba(10,10,10,0.12), 0 2px 8px rgba(10,10,10,0.06)' }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         data-cursor="hover"
       >
-        {/* Light background */}
-        <div className="absolute inset-0" style={{ background: thumb.bg }} />
+        {/* Fully opaque background — blocks canvas hatch */}
+        <div className="absolute inset-0" style={{ background: thumb.bg, opacity: 1 }} />
 
         {/* SVG pattern graphic */}
         <thumb.Graphic />
